@@ -23,3 +23,4 @@ class User(Base):
     last_name = Column(String)
     is_active = Column(Boolean, default=True)
     role = Column(String)
+    phone_number = Column(String)

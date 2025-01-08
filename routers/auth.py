@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from aiohttp import payload_type
+from jose import ExpiredSignatureError
 from fastapi import status
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
@@ -40,15 +41,14 @@ class CreateUserRequest(BaseModel):
     last_name: str
     password: str
     role: str
+    phone_number: str
 
 class Token(BaseModel):
     access_token: str
     token_type: str
 
-
-
 def create_access_token(username:str,user_id:str,role:str, expires_delta:timedelta):
-    payload = {'sub':username,'user_id':user_id,'role':role}
+    payload = {'sub':username,'id':user_id,'role':role}
     expire = datetime.now(timezone.utc) + expires_delta
     payload.update({'exp':expire})
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
@@ -70,22 +70,35 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
         first_name=create_user_request.first_name,
         last_name=create_user_request.last_name,
         hashed_password=bcrypt_context.hash(create_user_request.password),
-        role=create_user_request.role
+        role=create_user_request.role,
+        phone_number=create_user_request.phone_number
     )
     db.add(user)
     db.commit()
 
-async def get_current_user(token: Annotated[str,Depends(oauth2_bearer)]):
+
+async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         user_id: str = payload.get("id")
         user_role: str = payload.get("role")
         if username is None or user_id is None:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token or username")
-        return {'username':username,'id':user_id,'user_role': user_role}
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token or username",
+            )
+        return {"username": username, "id": user_id, "user_role": user_role}
+    except ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token has expired",
+        )
     except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+        )
 
 
 
