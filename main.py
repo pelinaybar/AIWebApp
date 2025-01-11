@@ -10,6 +10,7 @@ import os
 
 app = FastAPI()
 
+
 script_dir = os.path.dirname(__file__)
 st_abs_file_path = os.path.join(script_dir,"static/")
 
