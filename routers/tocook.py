@@ -23,6 +23,7 @@ router = APIRouter(
     prefix="/todo",
     tags=["ToCook"],
 )
+
 templates = Jinja2Templates(directory="templates")
 
 class toCookRequest(BaseModel):
