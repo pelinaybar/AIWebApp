@@ -2,8 +2,6 @@ version: '3.8'
 
 services:
   web:
-    volumes:
-       - ./sql_app.db:/code/sql_app.db
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,3 +9,5 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --port 80 --reload
     ports:
        - "80:80"
+    volumes:
+        - ./sql_app.db:/code/sql_app.db
