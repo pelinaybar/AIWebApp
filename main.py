@@ -5,7 +5,7 @@ from starlette import status
 from .models import Base, ToCook
 from .database import engine
 from .routers.auth import router as auth_router
-from .routers.tocook import router as todo_router
+from .routers.tocook import router as tocook_router
 import os
 
 app = FastAPI()
