@@ -11,11 +11,12 @@ from jose import jwt, JWTError, ExpiredSignatureError
 from datetime import timedelta, datetime, timezone
 from fastapi.templating import Jinja2Templates
 
+templates = Jinja2Templates(directory="templates")
+
 router = APIRouter(
     prefix="/auth",
     tags=["Authentication"]
 )
-
 
 SECRET_KEY = "nfylsj08qes55s8rt1uv5ww92dtfbn50"
 ALGORITHM = "HS256"
@@ -99,7 +100,14 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
         )
 
 
+@router.get("/login-page")
+def render_login_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
 
+
+@router.get("/register-page")
+def render_register_page(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
 
 @router.post("/token",response_model=Token)
 async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: db_dependency):
@@ -113,3 +121,4 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
         )
     token = create_access_token(user.username,user.id,user.role,timedelta(minutes=60)) # Token oluşturmayı burada ekleyeceksiniz
     return {"access_token": token, "token_type": "bearer"}
+
