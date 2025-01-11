@@ -3,22 +3,22 @@
 <div class="container">
     <div class="card text-center">
         <div class="card-header">
-            Your Todo's!
+            Senin Yemeklerin :)
         </div>
         <div class="card-body">
             <h5 class="card-title">
-                List of your todo's!
+                İşte Yemek Tariflerinin Listesi!
             </h5>
             <p class="card-text">
-                Information regarding stuff that needs to be complete
+                Tamamlanması gereken şeylerle ilgili bilgiler.
             </p>
 
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Info</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">Bilgi</th>
+                        <th scope="col">Aksiyon</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +30,7 @@
                     <td>
                         <button onclick="window.location.href='edit-todo-page/{{todo.id}}'"
                                 type="button" class="btn btn-info">
-                            Edit
+                            Düzenle
                         </button>
                     </td>
                 </tr>
@@ -41,7 +41,7 @@
                     <td>
                         <button onclick="window.location.href='edit-todo-page/{{todo.id}}'"
                                 type="button" class="btn btn-info">
-                            Edit
+                            Düzenle
                         </button>
                     </td>
                 </tr>
@@ -49,7 +49,7 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <a href="add-todo-page" class="btn btn-primary">Add a new todo!</a>
+            <a href="add-todo-page" class="btn btn-primary">Yeni Yemek Tarifi Ekle!</a>
         </div>
     </div>
 </div>

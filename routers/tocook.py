@@ -25,7 +25,7 @@ templates = Jinja2Templates(directory="templates")
 
 class toCookRequest(BaseModel):
     title: str = Field(min_length=3, max_length=50)
-    description: str = Field(min_length=3, max_length=1500)
+    description: str = Field(min_length=3)
     priority: int = Field(gt=0, lt=6)
     completed: bool = False
 

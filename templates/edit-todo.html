@@ -3,20 +3,20 @@
 <div class="container">
   <div class="card">
     <div class="card-header">
-      Let's edit your todo!
+      Hadi Yemek Tarifini Güncelleyelim!
     </div>
     <div class="card-body">
       <form id="editTodoForm">
         <div class="form-group">
-          <label>Title</label>
+          <label>Başlık</label>
           <input type="text" class="form-control" name="title" value="{{tocook.title}}" required>
         </div>
         <div class="form-group">
-          <label>Description</label>
+          <label>İçerik</label>
           <textarea name="description" class="form-control" rows="3" required>{{tocook.description}}</textarea>
         </div>
         <div class="form-group">
-          <label>Priority</label>
+          <label>Önemlilik Derecesi</label>
           <select name="priority" class="form-control">
             <option {% if tocook.priority == 1 %} selected="selected" {% endif %}>1</option>
             <option {% if tocook.priority == 2 %} selected="selected" {% endif %}>2</option>
@@ -27,11 +27,11 @@
         </div>
         <div class="form-group form-check">
           <input type="checkbox" class="form-check-input" name="completed" {% if tocook.completed %} checked {% endif %}>
-          <label class="form-check-label">Completed</label>
+          <label class="form-check-label">Yapıldı</label>
         </div>
-        <button type="submit" class="btn btn-primary">Edit your todo</button>
-        <button id="deleteButton" type="button" class="btn btn-danger">Delete</button>
-        <a href="/todo/todo-page" class="btn btn-success">Back</a>
+        <button type="submit" class="btn btn-primary">Yemek Tarifini Düzenle</button>
+        <button id="deleteButton" type="button" class="btn btn-danger">Sil</button>
+        <a href="/todo/todo-page" class="btn btn-success">Geri Dön!</a>
       </form>
     </div>
   </div>
