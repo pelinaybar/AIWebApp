@@ -2,6 +2,8 @@ version: '3.8'
 
 services:
   web:
+    volumes:
+       - ./sql_app.db:/code/sql_app.db
     build:
       context: .
       dockerfile: Dockerfile
