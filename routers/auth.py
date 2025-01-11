@@ -7,7 +7,7 @@ from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from ..database import SessionLocal
 from ..models import User
 from passlib.context import CryptContext
-from jose import jwt, JWTError
+from jose import jwt, JWTError, ExpiredSignatureError
 from datetime import timedelta, datetime, timezone
 from fastapi.templating import Jinja2Templates
 
