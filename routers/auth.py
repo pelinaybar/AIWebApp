@@ -3,7 +3,7 @@ from datetime import timedelta
 from aiohttp import payload_type
 from jose import ExpiredSignatureError
 from fastapi import status
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from typing import Annotated
 from sqlalchemy.orm import Session
@@ -13,14 +13,11 @@ from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
 from datetime import datetime, timedelta, timezone
-from fastapi.templating import Jinja2Templates
 
 router = APIRouter(
     prefix="/auth",
     tags=["Authentication"]
 )
-
-templates = Jinja2Templates(directory="templates")
 
 SECRET_KEY = "nfylsj08qes55s8rt1uv5ww92dtfbn50"
 ALGORITHM = "HS256"
@@ -57,7 +54,6 @@ def create_access_token(username:str,user_id:str,role:str, expires_delta:timedel
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
 
-
 def authenticate_user(username: str, password: str,db):
     user = db.query(User).filter(User.username == username).first()
     if not user:
@@ -65,7 +61,6 @@ def authenticate_user(username: str, password: str,db):
     if not bcrypt_context.verify(password, user.hashed_password):
         return False
     return user
-
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_user(db: db_dependency, create_user_request: CreateUserRequest):
@@ -105,13 +100,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
             detail="Invalid token",
         )
 
-@router.get("/login-page")
-def render_login_page(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
 
-@router.get("/register-page")
-def render_register_page(request: Request):
-    return templates.TemplateResponse("register.html", {"request": request})
 
 
 @router.post("/token",response_model=Token)
