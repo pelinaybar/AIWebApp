@@ -5,8 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - ./sql_app.db:/code/sql_app.db
     command: uvicorn app.main:app --host 0.0.0.0 --port 80 --reload
     ports:
-       - "80:80"
+      - "80:80"
+    volumes:
+      - /Users/pelinaybar/PycharmProjects/ToDoAppGemini/sql_app.db:/app/sql_app.db
+

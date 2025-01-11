@@ -22,4 +22,6 @@ def read_root(request: Request):
 app.include_router(auth_router)
 app.include_router(tocook_router)
 
-Base.metadata.create_all(bind=engine)      #bu satır veritanabını oluşturur.
+if not os.path.exists("sql_app.db"):
+    Base.metadata.create_all(bind=engine)
+     #bu satır veritanabını oluşturur.
