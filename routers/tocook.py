@@ -6,10 +6,10 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql import FROM_LINTING
 from starlette.responses import RedirectResponse
 from fastapi import Request
-from models import Base, ToCook
-from database import engine, SessionLocal  # Veritabanı bağlantısı
+from ..models import Base, ToCook
+from ..database import engine, SessionLocal  # Veritabanı bağlantısı
 from typing import Annotated
-from routers.auth import get_current_user
+from ..routers.auth import get_current_user
 from fastapi.templating import Jinja2Templates
 from dotenv import load_dotenv
 import google.generativeai as genai
