@@ -54,9 +54,10 @@
         const payload = {
             title: data.title,
             description: data.description,
-            priority: parseInt(data.priority),
-            completed: formData.get("completed") === "on" // Checkbox kontrolü
+            priority: parseInt(data.priority, 10), // Number formatında
+            completed: formData.has("completed") // Checkbox işaretliyse true döner
         };
+
 
 
         try {
