@@ -8,7 +8,7 @@ COPY ./static /code/app/static
 COPY ./routers /code/app/routers
 COPY ./models.py /code/app/models.py
 COPY ./database.py /code/app/database.py
-
+COPY sql_app.db /code/sql_app.db
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
