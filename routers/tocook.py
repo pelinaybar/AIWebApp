@@ -1,23 +1,20 @@
-from tkinter.font import names
-from fastapi import APIRouter, Depends, Path, HTTPException, status  # Doğru status modülünü import ettik
-from google.auth.transport.urllib3 import Request
+from fastapi import APIRouter, Depends, Path, HTTPException, Request, Response
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
-from sqlalchemy.sql import FROM_LINTING
+from starlette import status
 from starlette.responses import RedirectResponse
-from fastapi import Request
 from ..models import Base, ToCook
-from ..database import engine, SessionLocal  # Veritabanı bağlantısı
+from ..database import engine, SessionLocal
 from typing import Annotated
 from ..routers.auth import get_current_user
 from fastapi.templating import Jinja2Templates
 from dotenv import load_dotenv
 import google.generativeai as genai
 import os
-import markdown
-from bs4 import BeautifulSoup
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage, AIMessage
+import markdown
+from bs4 import BeautifulSoup
 
 router = APIRouter(
     prefix="/todo",

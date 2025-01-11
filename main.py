@@ -1,14 +1,11 @@
-from urllib.request import Request
-
-from alembic.util import status
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
 from starlette import status
 from .models import Base, ToCook
 from .database import engine
-from routers.auth import router as auth_router
-from routers.tocook import router as tocook_router
+from .routers.auth import router as auth_router
+from .routers.tocook import router as todo_router
 import os
 
 app = FastAPI()

@@ -1,18 +1,15 @@
-from datetime import timedelta
-
-from aiohttp import payload_type
-from jose import ExpiredSignatureError
-from fastapi import status
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from typing import Annotated
 from sqlalchemy.orm import Session
+from starlette import status
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from ..database import SessionLocal
 from ..models import User
 from passlib.context import CryptContext
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta, datetime, timezone
+from fastapi.templating import Jinja2Templates
 
 router = APIRouter(
     prefix="/auth",
