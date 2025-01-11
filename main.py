@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
-from starlette.responses import RedirectResponse
+from starlette.responses import RedirectResponse, JSONResponse
 from starlette import status
 from .models import Base, ToCook
 from .database import engine
@@ -9,6 +10,17 @@ from .routers.tocook import router as tocook_router
 import os
 
 app = FastAPI()
+
+# Hata işleyici burada tanımlanır
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=422,
+        content={
+            "detail": exc.errors(),
+            "body": exc.body,  # Gönderilen body'yi burada görebilirsiniz
+        },
+    )
 
 script_dir = os.path.dirname(__file__)
 st_abs_file_path = os.path.join(script_dir,"static/")
