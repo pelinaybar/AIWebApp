@@ -22,8 +22,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for todo in todos %}
-                {% if todo.complete == False %}
+                {% for todo in tocooks %}
+                {% if todo.completed == False %}
                 <tr class="pointer">
                     <td>{{loop.index}}</td>
                     <td>{{todo.title}}</td>

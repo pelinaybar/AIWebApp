@@ -18,9 +18,6 @@ app.mount("/static",StaticFiles(directory="static"),name="static")
 def read_root(request: Request):
     return RedirectResponse(url="/todo/todo-page",status_code=status.HTTP_302_FOUND)
 
-
-
-
 app.include_router(auth_router)
 app.include_router(tocook_router)
 

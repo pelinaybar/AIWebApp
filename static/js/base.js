@@ -12,8 +12,9 @@
                 title: data.title,
                 description: data.description,
                 priority: parseInt(data.priority),
-                complete: false
+                complete: formData.get("completed") === "on" // "completed" yerine "complete" olarak değiştirildi
             };
+
 
             try {
                 const response = await fetch('/todo/todo', {
@@ -54,8 +55,9 @@
             title: data.title,
             description: data.description,
             priority: parseInt(data.priority),
-            complete: data.complete === "on"
+            completed: formData.get("completed") === "on" // Checkbox kontrolü
         };
+
 
         try {
             const token = getCookie('access_token');
